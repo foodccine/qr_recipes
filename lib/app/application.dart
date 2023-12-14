@@ -7,7 +7,6 @@ import '../app/settings.dart';
 import '../presentation/resources/styles_manager.dart';
 import '../presentation/resources/themes_manager.dart';
 import '../presentation/views/main/main_screen.dart';
-import '../presentation/views/splash/splash_screen.dart';
 import '../services/dependencies.dart';
 
 class Application extends StatefulWidget {
@@ -48,10 +47,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       ),
       onGenerateRoute: (RouteSettings settings) {
         var routes = <String, WidgetBuilder>{
-          AppRoutes.splashRoute: (ctx) => const SplashScreen(),
           AppRoutes.mainRoute: (ctx) => const MainScreen(),
-          /* AppRoutes.recipeDetailsRoute: (ctx) =>
-              RecipeDirectionsScreen(settings.arguments as RecipeFullModel),*/
         };
         WidgetBuilder? builder = routes[settings.name];
         return MaterialPageRoute(builder: (ctx) => builder!(ctx));

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-
 import '../app/settings.dart';
 import '../network/body/event.dart';
 import '../services/dependencies.dart';
@@ -53,12 +51,6 @@ class EventsManager implements EventsManagerFunctions {
   @override
   screenOpened({required AppEvent appEvent}) {
     passEvent(appEvent);
-    try {
-      FirebaseAnalytics.instance
-          .setCurrentScreen(screenName: appEvent.data[AppKeys.screenName]);
-    } catch (e, stackTrace) {
-      AppFunctions.logException(e, stackTrace);
-    }
   }
 
   @override

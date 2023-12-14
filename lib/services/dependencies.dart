@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:fk_user_agent/fk_user_agent.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,7 +36,6 @@ class DependenciesService {
         StreamController<AppEvent>.broadcast();
     sl.registerFactory(() => controller);
 
-    String userAgent = await getUserAgent();
     final dio = Dio();
     dio.options.connectTimeout = 15000;
     dio.options.receiveTimeout = 15000;
@@ -64,7 +60,6 @@ class DependenciesService {
     sl.registerFactory(() => APIDataClient(sl()));
     sl.registerFactory(() => APIRegistryClient(sl()));
     sl.registerFactory(() => APIBigDataClient(sl()));
-    setHttpUserAgent(userAgent);
 
     updateRegistryInfo();
 
@@ -269,20 +264,6 @@ class DependenciesService {
     sl<StreamController<AppEvent>>().add(event);
   }
 
-  static void updateFCMToken() async {
-    try {
-      FirebaseMessaging.instance.getToken().then((value) {
-        if (value != null) {
-          setFCMToken(value);
-        }
-      }).onError((e, stackTrace) {
-        AppFunctions.logException(e, stackTrace);
-      });
-    } catch (e, stackTrace) {
-      AppFunctions.logException(e, stackTrace);
-    }
-  }
-
   static String? getRegistryUpdateDate() {
     return sl<SharedPreferences>().getString('registry_update_date');
   }
@@ -358,17 +339,6 @@ class DependenciesService {
 
   static updateUserInfo() async {
     updateRegistryInfo();
-    updateFCMToken();
-  }
-
-  static Future<String> getUserAgent() async {
-    try {
-      await FkUserAgent.init();
-      var platformVersion = FkUserAgent.userAgent!;
-      return platformVersion;
-    } on PlatformException {
-      return "";
-    }
   }
 
   static Future<void> pushEventsCache() async {

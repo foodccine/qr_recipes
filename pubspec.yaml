@@ -11,17 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.17.0
-  firebase_analytics: ^10.0.6
-  firebase_crashlytics: ^3.0.6
-  firebase_dynamic_links: ^5.0.6
-  firebase_messaging: ^14.1.2
-  cloud_firestore: ^4.9.3
-  cloud_firestore_web: ^3.7.2
   intl: ^0.17.0
   flutter_svg: ^1.1.6
   responsive_sizer: 3.1.1
-  flutter_staggered_grid_view: ^0.6.2
   stacked: ^3.0.1
   retrofit: ^3.3.1
   get_it: ^7.2.0
@@ -31,17 +23,9 @@ dependencies:
   shared_preferences: ^2.0.15
   hive: ^2.2.3
   hive_flutter: 1.1.0
-  flutter_local_notifications: ^12.0.4
-  flutter_keyboard_visibility: ^5.4.0
-  url_launcher: ^6.1.7
-  fk_user_agent: ^2.1.0
   uuid: ^3.0.7
   flutter_cache_manager: ^3.3.0
   cached_network_image: ^3.2.3
-  wakelock: ^0.6.2
-  country_picker: ^2.0.20
-  in_app_purchase: ^3.1.8
-  flutter_webrtc: ^0.9.27
   shimmer: ^3.0.0
 
 dev_dependencies:
