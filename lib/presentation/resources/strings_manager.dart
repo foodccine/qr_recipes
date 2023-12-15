@@ -17,4 +17,12 @@ class AppStrings {
     'en': 'No data is shown in this screen, please come back again later.',
     'ar': 'لا يوجد معلومات لعرضها في هذه الصفحة حالياً ، جرب مرة أخرى لاحقاً.',
   };
+  static const share = {
+    'en': 'Share',
+    'ar': 'مشاركة',
+  };
+  static const recipeDetails = {
+    'en': 'Recipe Details',
+    'ar': 'تفاصيل الوصفة',
+  };
 }

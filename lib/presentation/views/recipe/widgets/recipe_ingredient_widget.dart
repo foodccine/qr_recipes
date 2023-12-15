@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:qr_recipes/domain/models/recipe_ingredient.dart';
 import 'package:qr_recipes/presentation/resources/brands_manager.dart';
 import 'package:qr_recipes/presentation/resources/colors_manager.dart';
 import 'package:qr_recipes/presentation/resources/styles_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../services/dependencies.dart';
+import '../../../../services/dependencies.dart';
 
 class RecipeIngredientView extends StatefulWidget {
-  const RecipeIngredientView({Key? key}) : super(key: key);
+  const RecipeIngredientView(
+      {Key? key, required this.brandId, required this.ingredientModel})
+      : super(key: key);
+  final String brandId;
+  final RecipeIngredientModel ingredientModel;
 
   @override
   State<RecipeIngredientView> createState() => _RecipeIngredientViewState();
@@ -19,7 +24,12 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          setState(() {
+            widget.ingredientModel.isChecked =
+                !widget.ingredientModel.isChecked;
+          });
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 12.sp),
           child: Row(
@@ -32,18 +42,18 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'هيل مطحون',
+                    widget.ingredientModel.name,
                     style: getMediumStyle(
-                      fontSize: 16.sp,
+                      fontSize: 17.sp,
                       color: AppColors
                           .mainColor[DependenciesService.getAppStyle()],
                     ),
                   ),
                   SizedBox(height: 2.sp),
                   Text(
-                    '1 ملعقة كبيرة',
+                    widget.ingredientModel.quantity,
                     style: getMediumStyle(
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       color: AppColors
                           .mainColor[DependenciesService.getAppStyle()]!
                           .withOpacity(0.75),
@@ -55,8 +65,9 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                 scale: 1.4,
                 child: IgnorePointer(
                   child: Checkbox(
-                    checkColor: AppColors.white[DependenciesService.getAppStyle()]!,
-                    activeColor: BrandsManager.brandColor['qabalan_bakery'],
+                    checkColor:
+                        AppColors.white[DependenciesService.getAppStyle()]!,
+                    activeColor: BrandsManager.brandColor[widget.brandId],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.sp),
                     ),
@@ -66,8 +77,8 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                           .mainColor[DependenciesService.getAppStyle()]!
                           .withOpacity(0.2),
                     ),
-                    value: true,
-                    onChanged: (c) {},
+                    value: widget.ingredientModel.isChecked,
+                    onChanged: (bool? value) {},
                   ),
                 ),
               ),

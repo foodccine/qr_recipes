@@ -126,8 +126,9 @@ class DependenciesService {
     sl<SharedPreferences>().setInt('language_id', id);
   }
 
-  static String? getLanguageIso() {
-    return sl<SharedPreferences>().getString('language_iso');
+  static String getLanguageIso() {
+    return sl<SharedPreferences>().getString('language_iso') ??
+        AppSettings.defaultLanguageIso;
   }
 
   static void setLanguageIso(String iso) {
