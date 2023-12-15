@@ -11,6 +11,8 @@ class AppVectors {
   static const String alertCircleIcon = '$vectorsPath/alert_circle.svg';
   static const String checkCircleIcon = '$vectorsPath/check_circle.svg';
   static const String nextIcon = '$vectorsPath/next.svg';
+  static const String shareIcon = '$vectorsPath/share.svg';
+  static const String playIcon = '$vectorsPath/play.svg';
 }
 
 class AppAnimations {

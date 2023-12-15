@@ -3,26 +3,17 @@ import 'package:flutter/material.dart';
 
 class AppSettings {
   static const bool showBanner = false;
-  static const String initialRoute = AppRoutes.mainRoute;
-  static const String defaultStyle = 'dark';
-  static const String defaultLanguageIso = 'en';
-  static const String defaultLanguageDirectionStr = 'ltr';
-  static const TextDirection defaultLanguageDirection = TextDirection.ltr;
-  static const String defaultThemeType = 'dark';
+  static const String initialRoute = AppRoutes.recipeRoute;
+  static const String defaultStyle = 'light';
+  static const String defaultLanguageIso = 'ar';
+  static const String defaultLanguageDirectionStr = 'rtl';
+  static const TextDirection defaultLanguageDirection = TextDirection.rtl;
   static const int appRatingOnThreshold = 500;
   static const int appRatingOffDifference = 150;
 }
 
 class DbSettings {
   static const String eventsBox = 'events';
-}
-
-class DynamicLinksSettings {
-  static const String recipeLink = 'https://foodccine.com/recipes';
-  static const String prefix = 'https://foodccine.page.link';
-  static const String androidPackage = 'com.foodccine.app';
-  static const String iosBundle = 'com.foodccine.recipes';
-  static const String appId = '1661072924';
 }
 
 class AppKeys {
@@ -35,13 +26,9 @@ class AppKeys {
 }
 
 class AppRoutes {
-  static const String splashRoute = 'splash';
-  static const String termsRoute = 'terms';
-  static const String mainRoute = 'main';
+  static const String recipeRoute = 'main';
 }
 
 class AppScreens {
-  static const String splashScreen = 'splash_screen';
-  static const String termsScreen = 'terms_screen';
-  static const String mainScreen = 'main_screen';
+  static const String recipeScreen = 'recipe_screen';
 }

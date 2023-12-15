@@ -38,8 +38,8 @@ ThemeData getAppTheme() {
 
 Brightness getBrightness() {
   if (DependenciesService.getAppStyle() == 'dark') {
-    return Brightness.light;
-  } else {
     return Brightness.dark;
+  } else {
+    return Brightness.light;
   }
 }

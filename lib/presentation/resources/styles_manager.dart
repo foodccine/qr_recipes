@@ -16,9 +16,7 @@ TextStyle _getTextStyle(double fontSize, String fontFamily,
 }
 
 TextStyle getRegularStyle(
-    {required double fontSize,
-    String? fontFamily,
-    Color color = Colors.white}) {
+    {required double fontSize, String? fontFamily, color = Colors.white}) {
   return _getTextStyle(
     fontSize *
         FontConstants.fontScaleFactors[DependenciesService.getLanguageIso() ??

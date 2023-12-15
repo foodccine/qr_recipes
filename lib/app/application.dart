@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
@@ -6,7 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../app/settings.dart';
 import '../presentation/resources/styles_manager.dart';
 import '../presentation/resources/themes_manager.dart';
-import '../presentation/views/main/main_screen.dart';
+import '../presentation/views/recipe/recipe_screen.dart';
 import '../services/dependencies.dart';
 
 class Application extends StatefulWidget {
@@ -33,6 +35,9 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: AppSettings.showBanner,
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown},
+      ),
       theme: getAppTheme(),
       builder: (context, child) => Directionality(
         textDirection: getLayoutDirection(),
@@ -47,7 +52,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       ),
       onGenerateRoute: (RouteSettings settings) {
         var routes = <String, WidgetBuilder>{
-          AppRoutes.mainRoute: (ctx) => const MainScreen(),
+          AppRoutes.recipeRoute: (ctx) => const RecipeScreen(),
         };
         WidgetBuilder? builder = routes[settings.name];
         return MaterialPageRoute(builder: (ctx) => builder!(ctx));
