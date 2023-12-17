@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../app/settings.dart';
 import '../../../../services/dependencies.dart';
+import '../../../resources/colors_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/styles_manager.dart';
 
@@ -17,18 +17,12 @@ class ErrorStateWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /*Lottie.asset(
-              AppAnimations.knifeAnim,
-              width: 48.sp,
-              height: 48.sp,
-            ),*/
-            SizedBox(height: 20.sp),
             Text(
-              AppStrings.error[DependenciesService.getLanguageIso() ??
-                  AppSettings.defaultLanguageIso]!,
+              AppStrings.error[DependenciesService.getLanguageIso()]!,
               textAlign: TextAlign.center,
-              style: getRegularStyle(
+              style: getMediumStyle(
                 fontSize: 15.sp,
+                color: AppColors.mainColor[DependenciesService.getAppStyle()]!,
               ).copyWith(height: 6.5.sp),
             )
           ],

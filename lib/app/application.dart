@@ -2,13 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qr_recipes/presentation/views/recipe/recipe_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../app/settings.dart';
 import '../presentation/resources/styles_manager.dart';
 import '../presentation/resources/themes_manager.dart';
-import '../presentation/views/recipe/recipe_screen.dart';
 import '../services/dependencies.dart';
 
 class Application extends StatefulWidget {
@@ -24,40 +25,53 @@ class Application extends StatefulWidget {
 
 @injectable
 class _ApplicationState extends State<Application> with WidgetsBindingObserver {
+  late GoRouter goRouter;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(StatusBarStyle.statusBarStyle);
     WidgetsBinding.instance.addObserver(this);
+    goRouter = GoRouter(routes: [
+      GoRoute(
+          path: '/',
+          builder: (context, state) {
+            print(state.uri.queryParameters.values);
+            return Directionality(
+              textDirection: getLayoutDirection(),
+              child: ResponsiveSizer(
+                builder: (
+                  BuildContext context,
+                  Orientation orientation,
+                  ScreenType screenType,
+                ) =>
+                    RecipeScreen(
+                  brandId: state.uri.queryParameters['brandId'],
+                  recipeId: state.uri.queryParameters['recipeId'] != null
+                      ? int.parse(state.uri.queryParameters['recipeId']!)
+                      : null,
+                  baseUrl: 'https://qr.foodccine.com/#' + state.uri.toString(),
+                ),
+              ),
+            );
+          }),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: AppSettings.showBanner,
       scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.stylus, PointerDeviceKind.unknown},
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown
+        },
       ),
       theme: getAppTheme(),
-      builder: (context, child) => Directionality(
-        textDirection: getLayoutDirection(),
-        child: ResponsiveSizer(
-          builder: (
-            BuildContext context,
-            Orientation orientation,
-            ScreenType screenType,
-          ) =>
-              child!,
-        ),
-      ),
-      onGenerateRoute: (RouteSettings settings) {
-        var routes = <String, WidgetBuilder>{
-          AppRoutes.recipeRoute: (ctx) => const RecipeScreen(),
-        };
-        WidgetBuilder? builder = routes[settings.name];
-        return MaterialPageRoute(builder: (ctx) => builder!(ctx));
-      },
-      initialRoute: AppSettings.initialRoute,
+      routerConfig: goRouter,
     );
   }
 

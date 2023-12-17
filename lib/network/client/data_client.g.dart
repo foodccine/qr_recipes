@@ -46,51 +46,25 @@ class _APIDataClient implements APIDataClient {
   }
 
   @override
-  Future<dynamic> sendFeedbackMessage(body) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'feedback/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<List<PrivacyPolicyEntity>> getPrivacyPolicy() async {
+  Future<RecipeEntity> getRecipeById(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<PrivacyPolicyEntity>>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<RecipeEntity>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'privacy-policy/',
+              'recipe/${id}/',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) =>
-            PrivacyPolicyEntity.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = RecipeEntity.fromJson(_result.data!);
     return value;
   }
 

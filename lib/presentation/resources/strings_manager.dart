@@ -25,4 +25,71 @@ class AppStrings {
     'en': 'Recipe Details',
     'ar': 'تفاصيل الوصفة',
   };
+  static const recipeDirection = {
+    'en': 'Recipe Directions',
+    'ar': 'خطوات التحضير',
+  };
+
+  static const units = {
+    'day': {
+      'en': 'Day',
+      'ar': 'يوم',
+    },
+    'hr': {
+      'en': 'Hour',
+      'ar': 'ساعة',
+    },
+    'hrAPR': {
+      'en': 'Hour',
+      'ar': 'ساعة',
+    },
+    'min': {
+      'en': 'Minute',
+      'ar': 'دقيقة',
+    },
+    'minAPR': {
+      'en': 'Minute',
+      'ar': 'دقيقة',
+    },
+    'tsp': {
+      'en': 'teaspoon',
+      'ar': 'ملعقة صغيرة',
+    },
+    'tbsp': {
+      'en': 'Tablespoon',
+      'ar': 'ملعقة كبيرة',
+    },
+    'cup': {
+      'en': 'Cup',
+      'ar': 'كوب',
+    },
+    'kg': {
+      'en': 'Kilogram',
+      'ar': 'كيلوغرام',
+    },
+    'gram': {
+      'en': 'Gram',
+      'ar': 'غرام',
+    },
+    'liter': {
+      'en': 'Liter',
+      'ar': 'لتر',
+    },
+    'ml': {
+      'en': 'MilliLitre',
+      'ar': 'مل',
+    },
+    'pcs': {
+      'en': 'Piece',
+      'ar': 'حبة',
+    },
+    'packet': {
+      'en': 'Packet',
+      'ar': 'باكيت',
+    },
+    'can': {
+      'en': 'Can',
+      'ar': 'علبة',
+    },
+  };
 }

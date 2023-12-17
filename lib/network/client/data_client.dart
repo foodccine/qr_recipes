@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../body/feedback_message.dart';
 import '../entity/language.dart';
-import '../entity/privacy_policy.dart';
+import '../entity/recipe.dart';
 
 part 'data_client.g.dart';
 
@@ -19,9 +18,6 @@ abstract class APIDataClient {
   @GET("language/")
   Future<List<LanguageEntity>> getLanguages();
 
-  @POST("feedback/")
-  Future sendFeedbackMessage(@Body() FeedbackBody body);
-
-  @GET("privacy-policy/")
-  Future<List<PrivacyPolicyEntity>> getPrivacyPolicy();
+  @GET("recipe/{id}/")
+  Future<RecipeEntity> getRecipeById(@Path('id') int id);
 }

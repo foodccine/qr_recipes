@@ -11,7 +11,7 @@ class RecipeIngredientView extends StatefulWidget {
   const RecipeIngredientView(
       {Key? key, required this.brandId, required this.ingredientModel})
       : super(key: key);
-  final String brandId;
+  final String? brandId;
   final RecipeIngredientModel ingredientModel;
 
   @override
@@ -67,7 +67,8 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                   child: Checkbox(
                     checkColor:
                         AppColors.white[DependenciesService.getAppStyle()]!,
-                    activeColor: BrandsManager.brandColor[widget.brandId],
+                    activeColor: BrandsManager.brandColor[widget.brandId] ??
+                        BrandsManager.brandColor['foodccine'],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.sp),
                     ),

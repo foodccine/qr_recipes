@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:qr_recipes/services/dependencies.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../resources/colors_manager.dart';
 import '../../../resources/styles_manager.dart';
 
 class EmptyStateWidget extends StatelessWidget {
@@ -19,18 +20,14 @@ class EmptyStateWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Lottie.asset(
-              asset,
-              width: 48.sp,
-              height: 48.sp,
-            ),
-            SizedBox(height: 20.sp),
             Text(
               text,
               textAlign: TextAlign.center,
-              style: getRegularStyle(
-                fontSize: 15.sp,
-              ).copyWith(height: 6.5.sp),
+              style: getMediumStyle(
+                      fontSize: 15.sp,
+                      color: AppColors
+                          .mainColor[DependenciesService.getAppStyle()]!)
+                  .copyWith(height: 6.5.sp),
             )
           ],
         ),

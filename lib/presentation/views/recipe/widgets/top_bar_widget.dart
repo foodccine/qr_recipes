@@ -3,11 +3,12 @@ import 'package:qr_recipes/presentation/resources/strings_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../services/dependencies.dart';
+import '../../../resources/brands_manager.dart';
 import '../../../resources/colors_manager.dart';
 import '../../../resources/styles_manager.dart';
 
 class TopBarView extends StatelessWidget {
-  final String logo;
+  final String? logo;
   final String title;
   final Function? onSharePressed;
   const TopBarView({
@@ -30,7 +31,7 @@ class TopBarView extends StatelessWidget {
           children: [
             Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Image.network(logo),
+              child: Image.asset(logo ?? BrandsManager.brandLogo['foodccine']!),
             ),
             Align(
               alignment: AlignmentDirectional.centerEnd,

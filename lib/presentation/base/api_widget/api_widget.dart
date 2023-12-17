@@ -34,7 +34,7 @@ class ApiWidget extends StatelessWidget {
     noData ??= EmptyStateWidget(
       text: AppStrings.noData[DependenciesService.getLanguageIso() ??
           AppSettings.defaultLanguageIso]!,
-      asset: AppAnimations.errorAnim,
+      asset: AppAnimations.panAnim,
     );
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 350),

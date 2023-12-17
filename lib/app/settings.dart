@@ -26,7 +26,7 @@ class AppKeys {
 }
 
 class AppRoutes {
-  static const String recipeRoute = 'main';
+  static const String recipeRoute = 'recipe';
 }
 
 class AppScreens {
