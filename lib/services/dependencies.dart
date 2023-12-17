@@ -46,6 +46,12 @@ class DependenciesService {
           'language': DependenciesService.getLanguageIso()
         };
         options.queryParameters.addAll(language);
+        options.headers['Access-Control-Allow-Origin'] = '*';
+        options.headers['Access-Control-Allow-Methods'] = '*';
+        options.headers['Access-Control-Allow-Headers'] =
+            'Access-Control-Allow-Headers, Content-Type, Authorization, Access-Control-Allow-Methods';
+        options.headers['Content-Type'] = 'application/json';
+
         handler.next(options);
       },
       onError: (error, handler) async {
@@ -56,6 +62,7 @@ class DependenciesService {
         }
       },
     ));
+
     sl.registerFactory(() => dio);
     sl.registerFactory(() => APIDataClient(sl()));
     sl.registerFactory(() => APIRegistryClient(sl()));
