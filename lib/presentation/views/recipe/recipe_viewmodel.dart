@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:intl/intl.dart';
-import 'package:qr_recipes/app/functions.dart';
 import 'package:qr_recipes/domain/models/recipe_direction.dart';
 import 'package:qr_recipes/domain/models/recipe_information.dart';
 import 'package:qr_recipes/domain/models/recipe_ingredient_group.dart';
@@ -50,7 +49,6 @@ class RecipeViewModel extends BaseApiViewModel
       },
     ).onError(
       (e, stackTrace) {
-        AppFunctions.logException(e, stackTrace);
         failure();
       },
     );

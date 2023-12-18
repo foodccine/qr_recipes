@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/settings.dart';
 import '../../../presentation/base/api_widget/states/error_state_widget_view.dart';
 import '../../../presentation/base/api_widget/states/loading_state_widget_view.dart';
 import '../../../services/dependencies.dart';
 import '../../base/api_widget/states/empty_state_widget_view.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/strings_manager.dart';
 
 class ApiWidget extends StatelessWidget {
@@ -32,9 +30,8 @@ class ApiWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     noData ??= EmptyStateWidget(
-      text: AppStrings.noData[DependenciesService.getLanguageIso() ??
-          AppSettings.defaultLanguageIso]!,
-      asset: AppAnimations.panAnim,
+      text: AppStrings.noData[DependenciesService.getLanguageIso()]!,
+      asset: '',
     );
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 350),
