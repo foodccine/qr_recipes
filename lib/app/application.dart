@@ -32,11 +32,12 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(StatusBarStyle.statusBarStyle);
     WidgetsBinding.instance.addObserver(this);
-    goRouter = GoRouter(routes: [
-      GoRoute(
-          path: '/',
+    goRouter = GoRouter(
+      errorBuilder: (c, s) => Container(),
+      routes: [
+        GoRoute(
+          path: '/:brand/:recipeId',
           builder: (context, state) {
-            print(state.uri.queryParameters.values);
             return Directionality(
               textDirection: getLayoutDirection(),
               child: ResponsiveSizer(
@@ -46,16 +47,18 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
                   ScreenType screenType,
                 ) =>
                     RecipeScreen(
-                  brandId: state.uri.queryParameters['brandId'],
-                  recipeId: state.uri.queryParameters['recipeId'] != null
-                      ? int.parse(state.uri.queryParameters['recipeId']!)
+                  brandId: state.pathParameters['brand'],
+                  recipeId: state.pathParameters['recipeId'] != null
+                      ? int.parse(state.pathParameters['recipeId']!)
                       : null,
-                  baseUrl: 'https://qr.foodccine.com/#' + state.uri.toString(),
+                  baseUrl: 'https://qr.foodccine.com/#' + state.uri.path,
                 ),
               ),
             );
-          }),
-    ]);
+          },
+        ),
+      ],
+    );
   }
 
   @override

@@ -18,6 +18,6 @@ abstract class APIDataClient {
   @GET("language/")
   Future<List<LanguageEntity>> getLanguages();
 
-  @GET("recipe/{id}/")
+  @GET("qr/recipe/{id}/")
   Future<RecipeEntity> getRecipeById(@Path('id') int id);
 }

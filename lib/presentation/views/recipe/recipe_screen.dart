@@ -42,11 +42,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
     _viewModel.loading();
     if (widget.recipeId != null) {
       _viewModel.setSuccessFunction(() {
-        /*Future.delayed(const Duration(milliseconds: 1000), () {
-          setState(() {
-            isLoading = false;
-          });
-        });*/
         setState(() {
           isLoading = false;
         });

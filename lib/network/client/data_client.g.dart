@@ -59,7 +59,7 @@ class _APIDataClient implements APIDataClient {
     )
             .compose(
               _dio.options,
-              'recipe/${id}/',
+              'qr/recipe/${id}/',
               queryParameters: queryParameters,
               data: _data,
             )
