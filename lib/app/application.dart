@@ -8,6 +8,7 @@ import 'package:qr_recipes/presentation/views/recipe/recipe_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../app/settings.dart';
+import '../presentation/base/not_found/not_found_widget.dart';
 import '../presentation/resources/styles_manager.dart';
 import '../presentation/resources/themes_manager.dart';
 import '../services/dependencies.dart';
@@ -33,7 +34,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
     SystemChrome.setSystemUIOverlayStyle(StatusBarStyle.statusBarStyle);
     WidgetsBinding.instance.addObserver(this);
     goRouter = GoRouter(
-      errorBuilder: (c, s) => Container(),
+      errorBuilder: (c, s) => const NotFoundView(),
       routes: [
         GoRoute(
           path: '/:brand/:recipeId',
@@ -51,7 +52,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
                   recipeId: state.pathParameters['recipeId'] != null
                       ? int.parse(state.pathParameters['recipeId']!)
                       : null,
-                  baseUrl: 'https://qr.foodccine.com/#' + state.uri.path,
+                  baseUrl: 'https://qr.foodccine.com${state.uri.path}',
                 ),
               ),
             );

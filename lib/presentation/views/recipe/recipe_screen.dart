@@ -12,6 +12,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../services/dependencies.dart';
+import '../../base/not_found/not_found_widget.dart';
 import '../../resources/colors_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
@@ -54,137 +55,163 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<RecipeViewModel>.reactive(
       viewModelBuilder: () => _viewModel,
-      builder: (context, viewModel, child) => Scaffold(
-        body: Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TopBarView(
-                  logo: BrandsManager.brandLogo[widget.brandId ?? 'foodccine'],
-                  title: AppStrings
-                      .recipeDetails[DependenciesService.getLanguageIso()]!,
-                  onSharePressed: () {
-                    Share.share(
-                        '${_viewModel.informationModel!.name}: ${widget.baseUrl}');
-                  },
-                ),
-                Expanded(
-                  child: ApiWidget(
-                    state: _viewModel.state,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (_viewModel.informationModel != null)
-                            RecipeInformationView(
-                              brandId: widget.brandId,
-                              information: _viewModel.informationModel!,
-                            ),
-                          SizedBox(height: 18.sp),
-                          ListView.separated(
+      builder: (context, viewModel, child) => brandExists(widget.brandId)
+          ? Scaffold(
+              body: Stack(
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TopBarView(
+                        logo: BrandsManager
+                            .brandLogo[widget.brandId ?? 'foodccine'],
+                        title: AppStrings.recipeDetails[
+                            DependenciesService.getLanguageIso()]!,
+                        onSharePressed: () {
+                          Share.share(
+                              '${_viewModel.informationModel!.name}: ${widget.baseUrl}');
+                        },
+                      ),
+                      Expanded(
+                        child: ApiWidget(
+                          state: _viewModel.state,
+                          child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _viewModel.ingredientsGroupsModel.length,
-                            itemBuilder: (c, i) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.sp),
-                                  color: AppColors.cardBackgroundColor[
-                                      DependenciesService.getAppStyle()],
-                                ),
-                                margin: EdgeInsets.symmetric(horizontal: 18.sp),
-                                padding: EdgeInsets.only(
-                                    top: 20.sp, left: 18.sp, right: 18.sp),
-                                child: IngredientsGroupView(
-                                  brandId: widget.brandId,
-                                  ingredientsGroup:
-                                      _viewModel.ingredientsGroupsModel[i],
-                                ),
-                              );
-                            },
-                            separatorBuilder: (c, i) {
-                              return SizedBox(height: 15.sp);
-                            },
-                          ),
-                          SizedBox(height: 18.sp),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.sp),
-                              color: AppColors.cardBackgroundColor[
-                                  DependenciesService.getAppStyle()],
-                            ),
-                            margin: EdgeInsets.symmetric(horizontal: 18.sp),
-                            padding: EdgeInsets.only(
-                                top: 20.sp, left: 18.sp, right: 18.sp),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  AppStrings.recipeDirection[
-                                      DependenciesService.getLanguageIso()]!,
-                                  style: getBoldStyle(
-                                    fontSize: 17.sp,
-                                    color: AppColors.mainColor[
-                                        DependenciesService.getAppStyle()],
-                                  ).copyWith(height: 1),
-                                ),
+                                if (_viewModel.informationModel != null)
+                                  RecipeInformationView(
+                                    brandId: widget.brandId,
+                                    information: _viewModel.informationModel!,
+                                  ),
                                 SizedBox(height: 18.sp),
                                 ListView.separated(
                                   scrollDirection: Axis.vertical,
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: _viewModel.directionsModel.length,
+                                  itemCount:
+                                      _viewModel.ingredientsGroupsModel.length,
                                   itemBuilder: (c, i) {
-                                    return RecipeDirectionView(
-                                      brandId: widget.brandId,
-                                      recipeDirection:
-                                          _viewModel.directionsModel[i],
-                                    );
-                                  },
-                                  separatorBuilder: (c, i) {
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 14.sp),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 3.sp,
-                                        color: AppColors.mainColor[
-                                                DependenciesService
-                                                    .getAppStyle()]!
-                                            .withOpacity(0.2),
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(14.sp),
+                                        color: AppColors.cardBackgroundColor[
+                                            DependenciesService.getAppStyle()],
+                                      ),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 18.sp),
+                                      padding: EdgeInsets.only(
+                                          top: 20.sp,
+                                          left: 18.sp,
+                                          right: 18.sp),
+                                      child: IngredientsGroupView(
+                                        brandId: widget.brandId,
+                                        ingredientsGroup: _viewModel
+                                            .ingredientsGroupsModel[i],
                                       ),
                                     );
                                   },
+                                  separatorBuilder: (c, i) {
+                                    return SizedBox(height: 15.sp);
+                                  },
+                                ),
+                                SizedBox(height: 18.sp),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14.sp),
+                                    color: AppColors.cardBackgroundColor[
+                                        DependenciesService.getAppStyle()],
+                                  ),
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 18.sp),
+                                  padding: EdgeInsets.only(
+                                      top: 20.sp, left: 18.sp, right: 18.sp),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppStrings.recipeDirection[
+                                            DependenciesService
+                                                .getLanguageIso()]!,
+                                        style: getBoldStyle(
+                                          fontSize: 17.sp,
+                                          color: AppColors.mainColor[
+                                              DependenciesService
+                                                  .getAppStyle()],
+                                        ).copyWith(height: 1),
+                                      ),
+                                      SizedBox(height: 18.sp),
+                                      ListView.separated(
+                                        scrollDirection: Axis.vertical,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            _viewModel.directionsModel.length,
+                                        itemBuilder: (c, i) {
+                                          return RecipeDirectionView(
+                                            brandId: widget.brandId,
+                                            recipeDirection:
+                                                _viewModel.directionsModel[i],
+                                          );
+                                        },
+                                        separatorBuilder: (c, i) {
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 14.sp),
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 3.sp,
+                                              color: AppColors.mainColor[
+                                                      DependenciesService
+                                                          .getAppStyle()]!
+                                                  .withOpacity(0.2),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
+                    ],
+                  ),
+                  IgnorePointer(
+                    child: AnimatedOpacity(
+                      opacity: isLoading ? 1 : 0,
+                      duration: const Duration(milliseconds: 500),
+                      child: LoadingView(
+                          logo: widget.brandId != null
+                              ? BrandsManager.brandLogo[widget.brandId]
+                              : AppImages.qrLogo),
                     ),
                   ),
-                ),
-              ],
-            ),
-            IgnorePointer(
-              child: AnimatedOpacity(
-                opacity: isLoading ? 1 : 0,
-                duration: const Duration(milliseconds: 500),
-                child: LoadingView(
-                    logo: widget.brandId != null
-                        ? BrandsManager.brandLogo[widget.brandId]
-                        : AppImages.qrLogo),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          : const NotFoundView(),
     );
+  }
+
+  bool brandExists(String? brandId) {
+    if (brandId != null) {
+      if (BrandsManager.brandLogo[brandId] != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }
