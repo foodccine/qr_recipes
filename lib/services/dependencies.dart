@@ -2,11 +2,15 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:qr_recipes/app/functions.dart';
+import 'package:qr_recipes/domain/models/brand.dart';
+import 'package:qr_recipes/domain/models/social_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../app/settings.dart';
 import '../network/client/data_client.dart';
+import '../presentation/resources/assets_manager.dart';
 
 class DependenciesService {
   static final sl = GetIt.instance;
@@ -52,6 +56,30 @@ class DependenciesService {
 
     sl.registerFactory(() => dio);
     sl.registerFactory(() => APIDataClient(sl()));
+
+    Map<String, dynamic> settings =
+        await AppFunctions.parseJsonFromAssets(AppBrand.settings);
+
+    BrandModel brandModel = BrandModel(
+      settings['brandId'] ?? 'foodccine',
+      settings['brandColor'] ?? '#C3424D',
+      settings['brandDomain'] ?? 'https://qr.foodccine.com/',
+    );
+    if (settings['socialAccounts'] != null) {
+      List<dynamic> accounts = settings['socialAccounts'];
+      for (Map<String, dynamic> account in accounts) {
+        if (account['platform'] != null &&
+            account['username'] != null &&
+            account['target'] != null) {
+          brandModel.socialAccounts.add(SocialAccount(
+            account['platform'],
+            account['username'],
+            account['target'],
+          ));
+        }
+      }
+    }
+    sl.registerFactory(() => brandModel);
   }
 
   static void setHttpUserAgent(String userAgent) {
@@ -109,5 +137,9 @@ class DependenciesService {
 
   static APIDataClient getDataClient() {
     return sl<APIDataClient>();
+  }
+
+  static BrandModel getBrandModel() {
+    return sl<BrandModel>();
   }
 }

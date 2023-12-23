@@ -21,6 +21,14 @@ class AppStrings {
     'en': 'Share',
     'ar': 'مشاركة',
   };
+  static const contactUs = {
+    'en': 'Contact Us',
+    'ar': 'تواصل معنا',
+  };
+  static const homePage = {
+    'en': 'Home Page',
+    'ar': 'الصفحة الرئيسية',
+  };
   static const recipeDetails = {
     'en': 'Recipe Details',
     'ar': 'تفاصيل الوصفة',
@@ -28,6 +36,74 @@ class AppStrings {
   static const recipeDirection = {
     'en': 'Recipe Directions',
     'ar': 'خطوات التحضير',
+  };
+  static const person = {
+    'en': 'Person',
+    'ar': 'شخص',
+  };
+  static const andAPR = {
+    'en': '&',
+    'ar': 'و',
+  };
+
+  static const facebook = {
+    'en': 'Facebook',
+    'ar': 'فيسبوك',
+  };
+
+  static const instagram = {
+    'en': 'Instagram',
+    'ar': 'انستاغرام',
+  };
+
+  static const youtube = {
+    'en': 'Youtube',
+    'ar': 'يوتيوب',
+  };
+
+  static const x = {
+    'en': 'X',
+    'ar': 'اكس',
+  };
+
+  static const snapchat = {
+    'en': 'Snapchat',
+    'ar': 'سناب شات',
+  };
+
+  static const tiktok = {
+    'en': 'TikTok',
+    'ar': 'تيكتوك',
+  };
+
+  static const whatsapp = {
+    'en': 'Whatsapp',
+    'ar': 'واتساب',
+  };
+
+  static const website = {
+    'en': 'Website',
+    'ar': 'الموقع الالكتروني',
+  };
+
+  static const googleplay = {
+    'en': 'Google Play',
+    'ar': 'جوجل بلاي',
+  };
+
+  static const appstore = {
+    'en': 'Appstore',
+    'ar': 'اب ستور',
+  };
+
+  static const phone = {
+    'en': 'Phone Call',
+    'ar': 'مكالمة هاتفية',
+  };
+
+  static const more = {
+    'en': 'More',
+    'ar': 'المزيد',
   };
 
   static const units = {

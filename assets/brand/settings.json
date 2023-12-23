@@ -1,0 +1,27 @@
+{
+  "brandId": "qabalan",
+  "brandColor": "#16A2A3",
+  "brandDomain": "https://qabalan.foodccine.com/",
+  "socialAccounts": [
+    {
+      "platform": "facebook",
+      "username": "@QabalanBakeries",
+      "target": "https://www.facebook.com/QabalanBakeries/"
+    },
+    {
+      "platform": "instagram",
+      "username": "@qabalanbakery",
+      "target": "https://www.instagram.com/qabalanbakery/"
+    },
+    {
+      "platform": "whatsapp",
+      "username": "+962788846702",
+      "target": "00962788846702"
+    },
+    {
+      "platform": "phone",
+      "username": "+962788846702",
+      "target": "00962788846702"
+    }
+  ]
+}

@@ -6,12 +6,13 @@ import '../entity/recipe.dart';
 
 part 'data_client.g.dart';
 
-const String DOMAIN = 'data.foodccine.com';
+//const String DOMAIN = 'data.foodccine.com';
+const String DOMAIN = 'localhost:8000';
 const String DEV_DOMAIN = 'dev-data.foodccine.com';
 
 const String API_SLUG = 'api/v2/';
 
-@RestApi(baseUrl: "https://$DOMAIN/$API_SLUG")
+@RestApi(baseUrl: "http://$DOMAIN/$API_SLUG")
 abstract class APIDataClient {
   factory APIDataClient(Dio dio, {String baseUrl}) = _APIDataClient;
 
@@ -20,4 +21,7 @@ abstract class APIDataClient {
 
   @GET("qr/recipe/{id}/")
   Future<RecipeEntity> getRecipeById(@Path('id') int id);
+
+  @GET("qr/recipe/")
+  Future<List<RecipeEntity>> getRecipes();
 }

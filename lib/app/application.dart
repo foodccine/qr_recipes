@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qr_recipes/presentation/views/home/home_screen.dart';
 import 'package:qr_recipes/presentation/views/recipe/recipe_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -37,7 +38,23 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       errorBuilder: (c, s) => const NotFoundView(),
       routes: [
         GoRoute(
-          path: '/:brand/:recipeId',
+          path: '/',
+          builder: (context, state) {
+            return Directionality(
+              textDirection: getLayoutDirection(),
+              child: ResponsiveSizer(
+                builder: (
+                  BuildContext context,
+                  Orientation orientation,
+                  ScreenType screenType,
+                ) =>
+                    const HomeScreen(),
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/${AppKeys.recipePath}/:${AppKeys.recipeId}',
           builder: (context, state) {
             return Directionality(
               textDirection: getLayoutDirection(),
@@ -48,11 +65,8 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
                   ScreenType screenType,
                 ) =>
                     RecipeScreen(
-                  brandId: state.pathParameters['brand'],
-                  recipeId: state.pathParameters['recipeId'] != null
-                      ? int.parse(state.pathParameters['recipeId']!)
-                      : null,
-                  baseUrl: 'https://qr.foodccine.com${state.uri.path}',
+                  recipeId:
+                      int.parse(state.pathParameters[AppKeys.recipeId] ?? '0'),
                 ),
               ),
             );

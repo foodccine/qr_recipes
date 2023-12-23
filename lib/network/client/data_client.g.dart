@@ -13,7 +13,7 @@ class _APIDataClient implements APIDataClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://data.foodccine.com/api/v2/';
+    baseUrl ??= 'http://localhost:8000/api/v2/';
   }
 
   final Dio _dio;
@@ -65,6 +65,31 @@ class _APIDataClient implements APIDataClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RecipeEntity.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<RecipeEntity>> getRecipes() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<RecipeEntity>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'qr/recipe/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => RecipeEntity.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

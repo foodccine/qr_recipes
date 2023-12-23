@@ -1,15 +1,13 @@
 const String imagesPath = 'assets/images';
 const String vectorsPath = 'assets/vectors';
 const String animationsPath = 'assets/animations';
+const String brandPath = 'assets/brand';
 
-class AppImages {
-  static const String placeHolderImage = '$imagesPath/placeholder_bg.jpg';
-  static const String foodccineLogo = '$imagesPath/foodccine.png';
-  static const String qrLogo = '$imagesPath/qr.png';
+class AppBrand {
+  static const String brandLogo = '$brandPath/logo.png';
+  static const String settings = '$brandPath/settings.json';
 }
 
-class AppVectors {
-  static const String shareIcon = '$vectorsPath/share.svg';
-  static const String playIcon = '$vectorsPath/play.svg';
-  static const String qrIcon = '$vectorsPath/qr.svg';
+class AppImages {
+  static const String poweredBy = '$imagesPath/powered_by.png';
 }

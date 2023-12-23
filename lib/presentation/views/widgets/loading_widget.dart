@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../services/dependencies.dart';
-import '../../../resources/assets_manager.dart';
-import '../../../resources/colors_manager.dart';
+import '../../resources/assets_manager.dart';
+import '../../resources/colors_manager.dart';
 
 class LoadingView extends StatelessWidget {
-  const LoadingView({Key? key, required this.logo}) : super(key: key);
-  final String? logo;
+  const LoadingView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class LoadingView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  logo ?? AppImages.qrLogo,
+                  AppBrand.brandLogo,
                   width: 50.sp,
                 ),
                 SizedBox(height: 30.sp),
@@ -38,7 +37,7 @@ class LoadingView extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(25.sp),
               child: Image.asset(
-                AppImages.foodccineLogo,
+                AppImages.poweredBy,
                 width: 45.sp,
                 color: AppColors.mainColor[DependenciesService.getAppStyle()]!,
               ),

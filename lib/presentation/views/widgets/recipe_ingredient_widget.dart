@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qr_recipes/domain/models/recipe_ingredient.dart';
-import 'package:qr_recipes/presentation/resources/brands_manager.dart';
 import 'package:qr_recipes/presentation/resources/colors_manager.dart';
 import 'package:qr_recipes/presentation/resources/styles_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -8,10 +7,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../services/dependencies.dart';
 
 class RecipeIngredientView extends StatefulWidget {
-  const RecipeIngredientView(
-      {Key? key, required this.brandId, required this.ingredientModel})
+  const RecipeIngredientView({Key? key, required this.ingredientModel})
       : super(key: key);
-  final String? brandId;
   final RecipeIngredientModel ingredientModel;
 
   @override
@@ -67,8 +64,8 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                   child: Checkbox(
                     checkColor:
                         AppColors.white[DependenciesService.getAppStyle()]!,
-                    activeColor: BrandsManager.brandColor[widget.brandId] ??
-                        BrandsManager.brandColor['foodccine'],
+                    activeColor: HexColor.fromHex(
+                        DependenciesService.getBrandModel().color),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.sp),
                     ),

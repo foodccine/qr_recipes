@@ -1,11 +1,12 @@
 class RecipeInformationModel {
-  final String views;
+  final int id;
+  final int views;
   final String image;
   final String video;
   final String name;
-  final String time;
-  final String serving;
+  final int time;
+  final int serving;
 
-  RecipeInformationModel(
-      this.views, this.image, this.video, this.name, this.time, this.serving);
+  RecipeInformationModel(this.id, this.views, this.image, this.video, this.name,
+      this.time, this.serving);
 }

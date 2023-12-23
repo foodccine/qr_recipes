@@ -10,6 +10,9 @@ class AppSettings {
   static const TextDirection defaultLanguageDirection = TextDirection.rtl;
   static const int appRatingOnThreshold = 500;
   static const int appRatingOffDifference = 150;
+  static const String defaultBrandId = 'foodccine';
+  static const String defaultBrandColor = '#C3424D';
+  static const String defaultBrandDomain = 'https://qr.foodccine.com/';
 }
 
 class DbSettings {
@@ -23,6 +26,8 @@ class AppKeys {
   static const String created = 'created';
   static const String accepted = 'accepted';
   static const String rejected = 'rejected';
+  static const String recipePath = 'recipe';
+  static const String recipeId = 'recipeId';
 }
 
 class AppRoutes {

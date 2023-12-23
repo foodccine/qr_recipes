@@ -4,16 +4,13 @@ import 'package:qr_recipes/domain/models/recipe_direction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../services/dependencies.dart';
-import '../../../common/cache_manager.dart';
-import '../../../resources/brands_manager.dart';
-import '../../../resources/colors_manager.dart';
-import '../../../resources/styles_manager.dart';
+import '../../common/cache_manager.dart';
+import '../../resources/colors_manager.dart';
+import '../../resources/styles_manager.dart';
 
 class RecipeDirectionView extends StatelessWidget {
-  const RecipeDirectionView(
-      {Key? key, required this.brandId, required this.recipeDirection})
+  const RecipeDirectionView({Key? key, required this.recipeDirection})
       : super(key: key);
-  final String? brandId;
   final RecipeDirectionModel recipeDirection;
 
   @override
@@ -31,8 +28,8 @@ class RecipeDirectionView extends StatelessWidget {
               width: 23.sp,
               height: 23.sp,
               decoration: BoxDecoration(
-                color: BrandsManager.brandColor[brandId] ??
-                    BrandsManager.brandColor['foodccine'],
+                color:
+                    HexColor.fromHex(DependenciesService.getBrandModel().color),
                 borderRadius: BorderRadius.circular(100.sp),
               ),
               child: Center(

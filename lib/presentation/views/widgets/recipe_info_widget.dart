@@ -1,21 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_recipes/app/functions.dart';
 import 'package:qr_recipes/domain/models/recipe_information.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../services/dependencies.dart';
-import '../../../common/cache_manager.dart';
-import '../../../resources/brands_manager.dart';
-import '../../../resources/colors_manager.dart';
-import '../../../resources/styles_manager.dart';
+import '../../common/cache_manager.dart';
+import '../../resources/colors_manager.dart';
+import '../../resources/strings_manager.dart';
+import '../../resources/styles_manager.dart';
 
 class RecipeInformationView extends StatefulWidget {
-  const RecipeInformationView(
-      {Key? key, required this.brandId, required this.information})
+  const RecipeInformationView({Key? key, required this.information})
       : super(key: key);
-  final String? brandId;
   final RecipeInformationModel information;
 
   @override
@@ -133,7 +132,8 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                         Padding(
                                           padding: EdgeInsets.only(top: 7.sp),
                                           child: Text(
-                                            widget.information.time,
+                                            AppFunctions.minToTime(
+                                                widget.information.time),
                                             style: getMediumStyle(
                                               fontSize: 14.5.sp,
                                               color: AppColors.mainColor[
@@ -171,7 +171,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                         Padding(
                                           padding: EdgeInsets.only(top: 7.sp),
                                           child: Text(
-                                            widget.information.serving,
+                                            '${widget.information.serving} ${AppStrings.person[DependenciesService.getLanguageIso()]!}',
                                             style: getMediumStyle(
                                               fontSize: 14.5.sp,
                                               color: AppColors.mainColor[
@@ -200,8 +200,8 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                         width: 32.sp,
                         height: 32.sp,
                         decoration: BoxDecoration(
-                          color: BrandsManager.brandColor[widget.brandId] ??
-                              BrandsManager.brandColor['foodccine'],
+                          color: HexColor.fromHex(
+                              DependenciesService.getBrandModel().color),
                           borderRadius: BorderRadius.circular(150.sp),
                           border: Border.all(
                             color: AppColors

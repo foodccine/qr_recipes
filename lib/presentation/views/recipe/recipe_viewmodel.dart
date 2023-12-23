@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:intl/intl.dart';
+import 'package:qr_recipes/app/functions.dart';
 import 'package:qr_recipes/domain/models/recipe_direction.dart';
 import 'package:qr_recipes/domain/models/recipe_information.dart';
 import 'package:qr_recipes/domain/models/recipe_ingredient_group.dart';
@@ -9,14 +9,15 @@ import 'package:qr_recipes/network/entity/ingredient.dart';
 import 'package:qr_recipes/network/entity/ingredinets_group.dart';
 import 'package:qr_recipes/presentation/common/cache_manager.dart';
 import 'package:qr_recipes/presentation/resources/strings_manager.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../services/dependencies.dart';
+import '../../../app/settings.dart';
 import '../../../domain/models/recipe_ingredient.dart';
 import '../../base/api_widget/base_api_viewmodel.dart';
-import '../../resources/conversion_manager.dart';
 
-class RecipeViewModel extends BaseApiViewModel
-    implements RecipeSummaryScreenViewModelFunctions {
+class RecipeScreenViewModel extends BaseApiViewModel
+    implements RecipeScreenViewModelFunctions {
   RecipeInformationModel? informationModel;
   List<RecipeIngredientGroupModel> ingredientsGroupsModel = [];
   List<RecipeDirectionModel> directionsModel = [];
@@ -28,12 +29,13 @@ class RecipeViewModel extends BaseApiViewModel
     DependenciesService.getDataClient().getRecipeById(recipeId).then(
       (value) {
         informationModel = RecipeInformationModel(
-          '0',
+          1,
+          0,
           value.image!,
           value.video != null ? value.video!.file! : '',
           value.name!,
-          value.time!.toString(),
-          value.serving != null ? value.serving!.toString() : '0',
+          value.time!,
+          value.serving != null ? value.serving! : 0,
         );
         ingredientsGroupsModel = buildIngredients(value.ingredients!);
         directionsModel = buildDirections(value.directions!);
@@ -42,7 +44,6 @@ class RecipeViewModel extends BaseApiViewModel
           if (onSuccess != null) {
             onSuccess!();
           }
-          viewRecipe();
         } else {
           empty();
         }
@@ -69,7 +70,7 @@ class RecipeViewModel extends BaseApiViewModel
       groupsIngredientsMap[groupId!]?.add(
         RecipeIngredientModel(
           e.product!.name!,
-          '${getIntegerFractionString(e.quantity!)}${getDoubleFraction(e.quantity!)}${AppStrings.units[e.unit!]![DependenciesService.getLanguageIso()]!}',
+          '${AppFunctions.getIntegerFractionString(e.quantity!)}${AppFunctions.getDoubleFraction(e.quantity!)}${AppStrings.units[e.unit!]![DependenciesService.getLanguageIso()]!}',
         ),
       );
     }
@@ -105,28 +106,10 @@ class RecipeViewModel extends BaseApiViewModel
     return directions;
   }
 
-  String convertDateTimeDisplay(String date) {
-    final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
-    final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
-    final DateTime displayDate = displayFormater.parse(date);
-    final String formatted = serverFormater.format(displayDate);
-    return formatted;
-  }
-
   @override
-  void shareRecipe() {}
-
-  @override
-  void viewRecipe() {}
-
-  String getIntegerFractionString(double quantity) {
-    int fraction = int.parse(quantity.toString().split(".")[0]);
-    return fraction == 0 ? '' : '$fraction ';
-  }
-
-  String getDoubleFraction(double quantity) {
-    double fraction = quantity - int.parse(quantity.toString().split(".")[0]);
-    return fraction == 0 ? '' : '${AppConversion.quantityToText[fraction]} ';
+  void shareRecipe() {
+    Share.share(
+        '${informationModel!.name}: ${DependenciesService.getBrandModel().domain}${AppKeys.recipePath}/${informationModel!.id}');
   }
 
   @override
@@ -135,12 +118,10 @@ class RecipeViewModel extends BaseApiViewModel
   }
 }
 
-abstract class RecipeSummaryScreenViewModelFunctions {
+abstract class RecipeScreenViewModelFunctions {
   void requestRecipe(int recipeId);
 
   void shareRecipe();
-
-  void viewRecipe();
 
   void setSuccessFunction(Function successFunction);
 }

@@ -1,5 +1,10 @@
-class BrandModel {
-  final String brandId;
+import 'social_account.dart';
 
-  BrandModel(this.brandId);
+class BrandModel {
+  final String identifier;
+  final String color;
+  final String domain;
+  List<SocialAccount> socialAccounts = [];
+
+  BrandModel(this.identifier, this.color, this.domain);
 }
