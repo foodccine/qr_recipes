@@ -5,10 +5,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../services/dependencies.dart';
+import '../../base/loading/loading_widget.dart';
 import '../../resources/colors_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
-import '../widgets/loading_widget.dart';
 import '../widgets/recipe_direction_widget.dart';
 import '../widgets/recipe_info_widget.dart';
 import '../widgets/recipe_ingredient_group_widget.dart';
@@ -18,9 +18,9 @@ import 'recipe_viewmodel.dart';
 class RecipeScreen extends StatefulWidget {
   const RecipeScreen({
     Key? key,
-    required this.recipeId,
+    required this.identifier,
   }) : super(key: key);
-  final int recipeId;
+  final String identifier;
 
   @override
   State<RecipeScreen> createState() => _RecipeScreenState();
@@ -39,7 +39,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
         isLoading = false;
       });
     });
-    _viewModel.requestRecipe(widget.recipeId);
+    _viewModel.requestRecipe(widget.identifier);
   }
 
   @override

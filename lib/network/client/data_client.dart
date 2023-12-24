@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../entity/brand_product.dart';
 import '../entity/language.dart';
 import '../entity/recipe.dart';
 
@@ -19,9 +20,20 @@ abstract class APIDataClient {
   @GET("language/")
   Future<List<LanguageEntity>> getLanguages();
 
-  @GET("qr/recipe/{id}/")
-  Future<RecipeEntity> getRecipeById(@Path('id') int id);
+  @GET("qr/brand-product/")
+  Future<List<BrandProductEntity>> getBrandProducts(
+    @Query('brand_id') String brandId,
+  );
+
+  @GET("qr/recipe/{identifier}/")
+  Future<RecipeEntity> getRecipeById(
+    @Path('identifier') String identifier,
+    @Query('brand_id') String brandId,
+  );
 
   @GET("qr/recipe/")
-  Future<List<RecipeEntity>> getRecipes();
+  Future<List<RecipeEntity>> getRecipes(
+    @Query('brand_id') String brandId,
+    @Query('brand_product__identifier') String? brandProductIdentifier,
+  );
 }

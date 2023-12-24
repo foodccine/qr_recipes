@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_recipes/app/settings.dart';
+import 'package:qr_recipes/domain/models/brand_product.dart';
 import 'package:qr_recipes/domain/models/social_account.dart';
+import 'package:qr_recipes/network/entity/brand_product.dart';
 import 'package:qr_recipes/network/entity/recipe.dart';
 import 'package:qr_recipes/presentation/resources/colors_manager.dart';
 import 'package:qr_recipes/presentation/views/widgets/social_media_widget.dart';
@@ -16,20 +18,58 @@ import '../../resources/styles_manager.dart';
 
 class HomeScreenViewModel extends BaseApiViewModel
     implements HomeScreenViewModelFunctions {
-  List<RecipeInformationModel> recipes = [];
+  String? selectedProduct;
+  String? queryParam;
   Function? onSuccess;
+  final List<RecipeInformationModel> recipes = [];
+  final List<BrandProductModel> products = [];
 
   @override
-  void requestProducts() {}
+  void init(String? selectedProduct) {
+    queryParam = selectedProduct;
+  }
+
+  @override
+  void requestProducts() {
+    products.clear();
+    products.add(BrandProductModel(
+      -1,
+      null,
+      'جميع المنتجات',
+      '',
+    ));
+    loading();
+    DependenciesService.getDataClient()
+        .getBrandProducts(DependenciesService.getBrandModel().identifier)
+        .then((value) {
+      for (BrandProductEntity entity in value) {
+        products.add(BrandProductModel(
+          entity.id ?? 0,
+          entity.identifier,
+          entity.name ?? '',
+          entity.image ?? '',
+        ));
+      }
+      validateSelectedProduct();
+      requestRecipes();
+    }).onError((error, stackTrace) {
+      validateSelectedProduct();
+      requestRecipes();
+    });
+  }
 
   @override
   void requestRecipes() {
     loading();
-    DependenciesService.getDataClient().getRecipes().then((value) {
+    DependenciesService.getDataClient()
+        .getRecipes(
+            DependenciesService.getBrandModel().identifier, selectedProduct)
+        .then((value) {
       recipes.clear();
       for (RecipeEntity recipe in value) {
         recipes.add(RecipeInformationModel(
           recipe.id ?? 0,
+          recipe.identifier ?? '',
           0,
           recipe.image ?? '',
           '',
@@ -48,9 +88,23 @@ class HomeScreenViewModel extends BaseApiViewModel
       }
     }).onError(
       (e, stackTrace) {
-        failure();
+        empty();
       },
     );
+  }
+
+  void validateSelectedProduct() {
+    bool isSelectedProductExists = false;
+    for (BrandProductModel p in products) {
+      if (p.identifier == queryParam) {
+        isSelectedProductExists = true;
+      }
+    }
+    if (!isSelectedProductExists) {
+      selectedProduct = null;
+    } else {
+      selectedProduct = queryParam;
+    }
   }
 
   @override
@@ -60,7 +114,7 @@ class HomeScreenViewModel extends BaseApiViewModel
 
   @override
   void recipePressed(BuildContext context, RecipeInformationModel recipe) {
-    context.go('/${AppKeys.recipePath}/${recipe.id}');
+    context.go('/${AppKeys.recipePath}/${recipe.identifier}');
   }
 
   @override
@@ -150,6 +204,7 @@ class HomeScreenViewModel extends BaseApiViewModel
 }
 
 abstract class HomeScreenViewModelFunctions {
+  void init(String? selectedProduct);
   void requestRecipes();
   void requestProducts();
   void setSuccessFunction(Function successFunction);

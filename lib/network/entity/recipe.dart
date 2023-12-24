@@ -13,6 +13,9 @@ class RecipeEntity {
   @JsonKey(name: 'id')
   final int? id;
 
+  @JsonKey(name: 'identifier')
+  final String? identifier;
+
   @JsonKey(name: 'name')
   final String? name;
 
@@ -51,6 +54,7 @@ class RecipeEntity {
 
   RecipeEntity(
     this.id,
+    this.identifier,
     this.name,
     this.image,
     this.level,

@@ -27,7 +27,8 @@ class AppKeys {
   static const String accepted = 'accepted';
   static const String rejected = 'rejected';
   static const String recipePath = 'recipe';
-  static const String recipeId = 'recipeId';
+  static const String identifier = 'identifier';
+  static const String productId = 'product_id';
 }
 
 class AppRoutes {

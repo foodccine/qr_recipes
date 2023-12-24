@@ -46,9 +46,38 @@ class _APIDataClient implements APIDataClient {
   }
 
   @override
-  Future<RecipeEntity> getRecipeById(id) async {
+  Future<List<BrandProductEntity>> getBrandProducts(brandId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'brand_id': brandId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BrandProductEntity>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'qr/brand-product/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            BrandProductEntity.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<RecipeEntity> getRecipeById(
+    identifier,
+    brandId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'brand_id': brandId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
@@ -59,7 +88,7 @@ class _APIDataClient implements APIDataClient {
     )
             .compose(
               _dio.options,
-              'qr/recipe/${id}/',
+              'qr/recipe/${identifier}/',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -69,9 +98,16 @@ class _APIDataClient implements APIDataClient {
   }
 
   @override
-  Future<List<RecipeEntity>> getRecipes() async {
+  Future<List<RecipeEntity>> getRecipes(
+    brandId,
+    brandProductIdentifier,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'brand_id': brandId,
+      r'brand_product__identifier': brandProductIdentifier,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio

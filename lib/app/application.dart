@@ -48,13 +48,15 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
                   Orientation orientation,
                   ScreenType screenType,
                 ) =>
-                    const HomeScreen(),
+                    HomeScreen(
+                  brandProduct: state.uri.queryParameters[AppKeys.productId],
+                ),
               ),
             );
           },
         ),
         GoRoute(
-          path: '/${AppKeys.recipePath}/:${AppKeys.recipeId}',
+          path: '/${AppKeys.recipePath}/:${AppKeys.identifier}',
           builder: (context, state) {
             return Directionality(
               textDirection: getLayoutDirection(),
@@ -65,9 +67,8 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
                   ScreenType screenType,
                 ) =>
                     RecipeScreen(
-                  recipeId:
-                      int.parse(state.pathParameters[AppKeys.recipeId] ?? '0'),
-                ),
+                        identifier:
+                            state.pathParameters[AppKeys.identifier] ?? ''),
               ),
             );
           },

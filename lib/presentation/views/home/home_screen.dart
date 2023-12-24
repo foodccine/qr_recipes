@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:qr_recipes/domain/models/brand_product.dart';
+import 'package:qr_recipes/presentation/base/not_found/not_found_widget.dart';
 import 'package:qr_recipes/presentation/resources/colors_manager.dart';
+import 'package:qr_recipes/presentation/resources/styles_manager.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../services/dependencies.dart';
 import '../../base/api_widget/api_widget.dart';
+import '../../base/loading/loading_widget.dart';
 import '../../resources/strings_manager.dart';
-import '../widgets/loading_widget.dart';
 import '../widgets/recipe_card_widget.dart';
 import '../widgets/top_bar_widget.dart';
 import 'home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, required this.brandProduct}) : super(key: key);
+
+  final String? brandProduct;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,13 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _viewModel.init(widget.brandProduct);
     _viewModel.loading();
     _viewModel.setSuccessFunction(() {
       setState(() {
         isLoading = false;
       });
     });
-    _viewModel.requestRecipes();
+    _viewModel.requestProducts();
   }
 
   @override
@@ -52,9 +58,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 showBack: false,
               ),
+              Container(
+                width: double.infinity,
+                color: AppColors.white[DependenciesService.getAppStyle()]!,
+                padding:
+                    EdgeInsets.symmetric(horizontal: 13.sp, vertical: 8.sp),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors
+                        .backgroundColor[DependenciesService.getAppStyle()]!,
+                    borderRadius: BorderRadius.circular(10.sp),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                  child: DropdownButton<String?>(
+                    value: _viewModel.selectedProduct,
+                    items: getMenuItems(_viewModel.products),
+                    onChanged: (value) {
+                      setState(() {
+                        _viewModel.selectedProduct = value;
+                        _viewModel.requestRecipes();
+                      });
+                    },
+                    isExpanded: true,
+                    style: getMediumStyle(
+                      fontSize: 15.sp,
+                      color: AppColors
+                          .mainColor[DependenciesService.getAppStyle()]!,
+                    ),
+                    underline: const SizedBox(height: 0),
+                  ),
+                ),
+              ),
               Expanded(
                 child: ApiWidget(
                     state: _viewModel.state,
+                    noData: const NotFoundView(),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
@@ -91,5 +129,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  List<DropdownMenuItem<String?>> getMenuItems(
+      List<BrandProductModel> products) {
+    List<DropdownMenuItem<String?>> items = [];
+    for (BrandProductModel product in products) {
+      items.add(DropdownMenuItem<String?>(
+        value: product.identifier,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 8.sp),
+            child: Text(
+              product.name,
+              style: getMediumStyle(
+                  fontSize: 15.sp,
+                  color:
+                      AppColors.mainColor[DependenciesService.getAppStyle()]!),
+            ),
+          ),
+        ),
+      ));
+    }
+    return items;
   }
 }

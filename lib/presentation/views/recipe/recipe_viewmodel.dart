@@ -24,18 +24,22 @@ class RecipeScreenViewModel extends BaseApiViewModel
   Function? onSuccess;
 
   @override
-  void requestRecipe(int recipeId) {
+  void requestRecipe(String identifier) {
     loading();
-    DependenciesService.getDataClient().getRecipeById(recipeId).then(
+    DependenciesService.getDataClient()
+        .getRecipeById(
+            identifier, DependenciesService.getBrandModel().identifier)
+        .then(
       (value) {
         informationModel = RecipeInformationModel(
           1,
+          value.identifier ?? '',
           0,
-          value.image!,
-          value.video != null ? value.video!.file! : '',
-          value.name!,
-          value.time!,
-          value.serving != null ? value.serving! : 0,
+          value.image ?? '',
+          value.video != null ? value.video!.file ?? '' : '',
+          value.name ?? '',
+          value.time ?? 0,
+          value.serving != null ? value.serving ?? 0 : 0,
         );
         ingredientsGroupsModel = buildIngredients(value.ingredients!);
         directionsModel = buildDirections(value.directions!);
@@ -119,7 +123,7 @@ class RecipeScreenViewModel extends BaseApiViewModel
 }
 
 abstract class RecipeScreenViewModelFunctions {
-  void requestRecipe(int recipeId);
+  void requestRecipe(String identifier);
 
   void shareRecipe();
 

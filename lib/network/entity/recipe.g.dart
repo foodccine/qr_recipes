@@ -8,6 +8,7 @@ part of 'recipe.dart';
 
 RecipeEntity _$RecipeEntityFromJson(Map<String, dynamic> json) => RecipeEntity(
       json['id'] as int?,
+      json['identifier'] as String?,
       json['name'] as String?,
       json['image'] as String?,
       json['level'] as String?,
@@ -35,6 +36,7 @@ RecipeEntity _$RecipeEntityFromJson(Map<String, dynamic> json) => RecipeEntity(
 Map<String, dynamic> _$RecipeEntityToJson(RecipeEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'identifier': instance.identifier,
       'name': instance.name,
       'image': instance.image,
       'level': instance.level,
