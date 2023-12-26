@@ -34,7 +34,7 @@ class RecipeScreenViewModel extends BaseApiViewModel
         informationModel = RecipeInformationModel(
           1,
           value.identifier ?? '',
-          0,
+          value.views ?? 0,
           value.image ?? '',
           value.video != null ? value.video!.file ?? '' : '',
           value.name ?? '',

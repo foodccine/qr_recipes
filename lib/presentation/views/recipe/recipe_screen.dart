@@ -29,7 +29,7 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   final RecipeScreenViewModel _viewModel = RecipeScreenViewModel();
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   void initState() {
