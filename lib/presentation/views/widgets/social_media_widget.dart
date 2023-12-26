@@ -43,7 +43,7 @@ class SocialMediaWidget extends StatelessWidget {
               Icon(
                 getPlatformIcon(platform),
                 color: AppColors.mainColor[DependenciesService.getAppStyle()]!,
-                size: 18.sp,
+                size: 22.sp,
               ),
               SizedBox(width: 14.sp),
               Padding(
@@ -51,7 +51,7 @@ class SocialMediaWidget extends StatelessWidget {
                 child: Text(
                   getPlatformName(platform),
                   style: getMediumStyle(
-                      fontSize: 15.sp,
+                      fontSize: 17.sp,
                       color: AppColors
                           .mainColor[DependenciesService.getAppStyle()]!),
                 ),
@@ -62,7 +62,7 @@ class SocialMediaWidget extends StatelessWidget {
                 child: Text(
                   username,
                   style: getMediumStyle(
-                      fontSize: 13.sp,
+                      fontSize: 15.sp,
                       color: AppColors
                           .mainColor[DependenciesService.getAppStyle()]!
                           .withOpacity(0.5)),

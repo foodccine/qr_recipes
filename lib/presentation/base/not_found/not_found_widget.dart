@@ -19,16 +19,16 @@ class NotFoundView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              AppBrand.brandLogo,
-              width: 50.sp,
+              AppImages.recipe,
+              width: 45.sp,
               color: Colors.grey.withOpacity(0.35),
             ),
-            SizedBox(height: 15.sp),
+            SizedBox(height: 18.sp),
             Text(
               AppStrings.noData[DependenciesService.getLanguageIso()]!,
               textAlign: TextAlign.center,
               style: getMediumStyle(
-                      fontSize: 15.sp,
+                      fontSize: 16.5.sp,
                       color: AppColors
                           .mainColor[DependenciesService.getAppStyle()]!)
                   .copyWith(height: 1.8),

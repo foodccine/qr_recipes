@@ -10,4 +10,5 @@ class AppBrand {
 
 class AppImages {
   static const String poweredBy = '$imagesPath/powered_by.png';
+  static const String recipe = '$imagesPath/recipe.png';
 }

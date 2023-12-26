@@ -13,7 +13,7 @@ class _APIDataClient implements APIDataClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:8000/api/v2/';
+    baseUrl ??= 'https://qr.foodccine.com/api/v1/';
   }
 
   final Dio _dio;
@@ -59,7 +59,7 @@ class _APIDataClient implements APIDataClient {
     )
             .compose(
               _dio.options,
-              'qr/brand-product/',
+              'brand-product/',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -88,7 +88,7 @@ class _APIDataClient implements APIDataClient {
     )
             .compose(
               _dio.options,
-              'qr/recipe/${identifier}/',
+              'recipe/${identifier}/',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -118,7 +118,7 @@ class _APIDataClient implements APIDataClient {
     )
             .compose(
               _dio.options,
-              'qr/recipe/',
+              'recipe/',
               queryParameters: queryParameters,
               data: _data,
             )

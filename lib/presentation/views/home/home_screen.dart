@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeScreenViewModel _viewModel = HomeScreenViewModel();
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: double.infinity,
                 color: AppColors.white[DependenciesService.getAppStyle()]!,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 13.sp, vertical: 8.sp),
+                padding: EdgeInsets.only(
+                    left: 13.sp, right: 13.sp, top: 8.sp, bottom: 13.sp),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors
@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(10.sp),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                  height: 28.sp,
                   child: DropdownButton<String?>(
                     value: _viewModel.selectedProduct,
                     items: getMenuItems(_viewModel.products),
@@ -137,15 +138,18 @@ class _HomeScreenState extends State<HomeScreen> {
     for (BrandProductModel product in products) {
       items.add(DropdownMenuItem<String?>(
         value: product.identifier,
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 8.sp),
-            child: Text(
-              product.name,
-              style: getMediumStyle(
-                  fontSize: 15.sp,
-                  color:
-                      AppColors.mainColor[DependenciesService.getAppStyle()]!),
+        child: SizedBox(
+          height: 28.sp,
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 8.sp),
+              child: Text(
+                product.name,
+                style: getMediumStyle(
+                    fontSize: 17.sp,
+                    color: AppColors
+                        .mainColor[DependenciesService.getAppStyle()]!),
+              ),
             ),
           ),
         ),

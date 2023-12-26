@@ -68,7 +68,7 @@ class RecipeCardView extends StatelessWidget {
                 children: [
                   Text(
                     recipeInformationModel.name,
-                    style: getMediumStyle(fontSize: 17.sp),
+                    style: getMediumStyle(fontSize: 19.sp),
                   ),
                   SizedBox(height: 10.sp),
                   Row(
@@ -81,7 +81,7 @@ class RecipeCardView extends StatelessWidget {
                             Icons.access_time,
                             color: AppColors
                                 .white[DependenciesService.getAppStyle()],
-                            size: 16.sp,
+                            size: 20.sp,
                           ),
                           SizedBox(width: 8.sp),
                           Padding(
@@ -90,7 +90,7 @@ class RecipeCardView extends StatelessWidget {
                               AppFunctions.minToTime(
                                   recipeInformationModel.time),
                               style: getMediumStyle(
-                                fontSize: 14.5.sp,
+                                fontSize: 17.sp,
                                 color: AppColors
                                     .white[DependenciesService.getAppStyle()],
                               ).copyWith(height: 1),
@@ -107,7 +107,7 @@ class RecipeCardView extends StatelessWidget {
                             Icons.local_dining_outlined,
                             color: AppColors
                                 .white[DependenciesService.getAppStyle()],
-                            size: 17.sp,
+                            size: 20.sp,
                           ),
                           SizedBox(width: 8.sp),
                           Padding(
@@ -115,7 +115,7 @@ class RecipeCardView extends StatelessWidget {
                             child: Text(
                               '${recipeInformationModel.serving} ${AppStrings.person[DependenciesService.getLanguageIso()]!}',
                               style: getMediumStyle(
-                                fontSize: 14.5.sp,
+                                fontSize: 17.sp,
                                 color: AppColors
                                     .white[DependenciesService.getAppStyle()],
                               ).copyWith(height: 1),

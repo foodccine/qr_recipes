@@ -54,7 +54,7 @@ class RecipeScreenViewModel extends BaseApiViewModel
       },
     ).onError(
       (e, stackTrace) {
-        failure();
+        empty();
       },
     );
   }
@@ -113,7 +113,7 @@ class RecipeScreenViewModel extends BaseApiViewModel
   @override
   void shareRecipe() {
     Share.share(
-        '${informationModel!.name}: ${DependenciesService.getBrandModel().domain}${AppKeys.recipePath}/${informationModel!.id}');
+        '${informationModel!.name}: ${DependenciesService.getBrandModel().domain}${AppKeys.recipePath}/${informationModel!.identifier}');
   }
 
   @override

@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../services/dependencies.dart';
 import '../../base/loading/loading_widget.dart';
+import '../../base/not_found/not_found_widget.dart';
 import '../../resources/colors_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/styles_manager.dart';
@@ -28,7 +29,7 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   final RecipeScreenViewModel _viewModel = RecipeScreenViewModel();
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -65,9 +66,16 @@ class _RecipeScreenState extends State<RecipeScreen> {
                   },
                   showBack: true,
                 ),
+                Container(
+                    width: double.infinity,
+                    height: 4.sp,
+                    color: AppColors
+                        .mainColor[DependenciesService.getAppStyle()]!
+                        .withOpacity(0.1)),
                 Expanded(
                   child: ApiWidget(
                     state: _viewModel.state,
+                    noData: const NotFoundView(),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(

@@ -29,7 +29,7 @@ class TopBarView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.sp),
       width: double.infinity,
-      height: 31.sp,
+      height: 33.sp,
       color: AppColors.primaryColor[DependenciesService.getAppStyle()],
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.sp),
@@ -102,7 +102,7 @@ class TopBarView extends StatelessWidget {
                               AppStrings
                                   .share[DependenciesService.getLanguageIso()]!,
                               style: getMediumStyle(
-                                fontSize: 14.5.sp,
+                                fontSize: 16.sp,
                                 color: AppColors.mainColor[
                                     DependenciesService.getAppStyle()],
                               ).copyWith(height: 1),
@@ -153,7 +153,7 @@ class TopBarView extends StatelessWidget {
                               AppStrings.contactUs[
                                   DependenciesService.getLanguageIso()]!,
                               style: getMediumStyle(
-                                fontSize: 14.5.sp,
+                                fontSize: 16.sp,
                                 color: AppColors.mainColor[
                                     DependenciesService.getAppStyle()],
                               ).copyWith(height: 1),

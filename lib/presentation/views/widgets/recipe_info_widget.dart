@@ -96,13 +96,13 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                 child: Text(
                                   widget.information.name,
                                   style: getBoldStyle(
-                                    fontSize: 18.sp,
+                                    fontSize: 20.sp,
                                     color: AppColors.white[
                                         DependenciesService.getAppStyle()],
                                   ).copyWith(height: 1),
                                 ),
                               ),
-                              SizedBox(height: 16.sp),
+                              SizedBox(height: 18.sp),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +126,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                           color: AppColors.mainColor[
                                               DependenciesService
                                                   .getAppStyle()],
-                                          size: 16.sp,
+                                          size: 19.sp,
                                         ),
                                         SizedBox(width: 10.sp),
                                         Padding(
@@ -135,7 +135,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                             AppFunctions.minToTime(
                                                 widget.information.time),
                                             style: getMediumStyle(
-                                              fontSize: 14.5.sp,
+                                              fontSize: 16.sp,
                                               color: AppColors.mainColor[
                                                   DependenciesService
                                                       .getAppStyle()],
@@ -165,7 +165,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                           color: AppColors.mainColor[
                                               DependenciesService
                                                   .getAppStyle()],
-                                          size: 16.sp,
+                                          size: 19.sp,
                                         ),
                                         SizedBox(width: 10.sp),
                                         Padding(
@@ -173,7 +173,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                                           child: Text(
                                             '${widget.information.serving} ${AppStrings.person[DependenciesService.getLanguageIso()]!}',
                                             style: getMediumStyle(
-                                              fontSize: 14.5.sp,
+                                              fontSize: 16.sp,
                                               color: AppColors.mainColor[
                                                   DependenciesService
                                                       .getAppStyle()],
@@ -231,7 +231,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                       ),
                     ),
                   ),
-                /*Positioned.fill(
+                Positioned.fill(
                   child: Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Container(
@@ -251,15 +251,15 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                             Icons.people_alt_outlined,
                             color: AppColors
                                 .white[DependenciesService.getAppStyle()],
-                            size: 16.sp,
+                            size: 19.sp,
                           ),
                           SizedBox(width: 10.sp),
                           Padding(
                             padding: EdgeInsets.only(top: 7.sp),
                             child: Text(
-                              widget.information.views,
+                              widget.information.views.toString(),
                               style: getMediumStyle(
-                                fontSize: 14.5.sp,
+                                fontSize: 16.sp,
                                 color: AppColors
                                     .white[DependenciesService.getAppStyle()],
                               ).copyWith(height: 1),
@@ -269,7 +269,7 @@ class _RecipeInformationViewState extends State<RecipeInformationView> {
                       ),
                     ),
                   ),
-                ),*/
+                ),
                 Material(
                   color: Colors.transparent,
                   child: InkWell(

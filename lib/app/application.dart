@@ -35,7 +35,19 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
     SystemChrome.setSystemUIOverlayStyle(StatusBarStyle.statusBarStyle);
     WidgetsBinding.instance.addObserver(this);
     goRouter = GoRouter(
-      errorBuilder: (c, s) => const NotFoundView(),
+      errorBuilder: (c, s) {
+        return Directionality(
+          textDirection: getLayoutDirection(),
+          child: ResponsiveSizer(
+            builder: (
+              BuildContext context,
+              Orientation orientation,
+              ScreenType screenType,
+            ) =>
+                const Scaffold(body: NotFoundView()),
+          ),
+        );
+      },
       routes: [
         GoRoute(
           path: '/',

@@ -85,10 +85,16 @@ class HomeScreenViewModel extends BaseApiViewModel
         }
       } else {
         empty();
+        if (onSuccess != null) {
+          onSuccess!();
+        }
       }
     }).onError(
       (e, stackTrace) {
         empty();
+        if (onSuccess != null) {
+          onSuccess!();
+        }
       },
     );
   }
@@ -120,7 +126,7 @@ class HomeScreenViewModel extends BaseApiViewModel
   @override
   void recipeShared(RecipeInformationModel recipe) {
     Share.share(
-        '${recipe.name}: ${DependenciesService.getBrandModel().domain}${AppKeys.recipePath}/${recipe.id}');
+        '${recipe.name}: ${DependenciesService.getBrandModel().domain}${AppKeys.recipePath}/${recipe.identifier}');
   }
 
   @override
@@ -149,11 +155,11 @@ class HomeScreenViewModel extends BaseApiViewModel
         children: [
           Center(
             child: Padding(
-              padding: EdgeInsets.only(top: 6.sp),
+              padding: EdgeInsets.symmetric(vertical: 11.sp),
               child: Text(
                   AppStrings.contactUs[DependenciesService.getLanguageIso()]!,
                   style: getBoldStyle(
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     color:
                         AppColors.mainColor[DependenciesService.getAppStyle()],
                   )),
@@ -170,7 +176,7 @@ class HomeScreenViewModel extends BaseApiViewModel
                   Icons.close,
                   color: AppColors.mainColor[DependenciesService.getAppStyle()]!
                       .withOpacity(0.75),
-                  size: 18.sp,
+                  size: 20.sp,
                 ),
               ),
             ),
